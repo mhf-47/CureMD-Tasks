@@ -1,0 +1,20 @@
+//4. Write a program that takes a number as an input and writes its square
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Please Enter a Number = ");
+        string A = Console.ReadLine();
+        int Num = int.Parse(A);
+        int Num_square = Num * Num;
+        
+        Console.WriteLine("The Square of this Number = " + Num_square);
+        
+    }
+}

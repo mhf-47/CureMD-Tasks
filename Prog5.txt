@@ -1,0 +1,18 @@
+//5. Write a program that prints all even number from 1 to 100
+
+using System;
+
+namespace HelloWorld
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+	for (int i = 2; i <= 100; i = i+2)
+        {
+            Console.WriteLine(i);
+        }
+        
+    }
+  }
+}

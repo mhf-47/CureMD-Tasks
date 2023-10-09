@@ -1,0 +1,70 @@
+//8. Write a program that prints all prime numbers up to n (where n is user input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------
+
+
+using System;
+
+class Program
+{
+    static bool IsPrime(int number)
+    {
+        if (number <= 1)
+            return false;
+
+        if (number <= 3)
+            return true;
+
+        if (number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        for (int i = 5; i * i <= number; i += 6)
+        {
+            if (number % i == 0 || number % (i + 2) == 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    static void Main()
+    {
+        Console.Write("Enter a positive integer n: ");
+        if (int.TryParse(Console.ReadLine(), out int n) && n > 1)
+        {
+            Console.WriteLine("Prime numbers up to " + n + ":");
+            for (int i = 2; i <= n; i++)
+            {
+                if (IsPrime(i))
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a positive integer greater than 1.");
+        }
+    }
+}

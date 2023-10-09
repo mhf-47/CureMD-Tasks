@@ -1,0 +1,27 @@
+//6. Write a program that asks the user for a number N and prints the sum of the numbers from  1 to N
+
+using System;
+
+namespace HelloWorld
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+		Console.WriteLine("Please Enter an Integer: ");
+        string A = Console.ReadLine();
+        int Num = int.Parse(A);
+        
+        int Sum = 0;
+        
+        for	(int i = 1; i <= Num; i++)
+        {
+            Sum = i + i; //Sum += i;
+        }
+        
+        Console.WriteLine("Sum of all Numbers = " + Sum);
+		 
+    
+    }
+  }
+}

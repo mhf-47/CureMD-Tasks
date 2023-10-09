@@ -1,0 +1,55 @@
+//9. Factorial n
+
+        Console.WriteLine("Please Enter an Integer n: ");
+        string A = Console.ReadLine();
+        int n = int.Parse(A);
+        
+        if (n == 0;)
+        {
+        	int Factorial = 1;
+        	Console.WriteLine("The factorial of n is " + Factorial);
+        }
+   		else
+        {
+        	
+		int Factorial = 1;
+
+            	for (int i = 1; i <= n; i++)
+            	{
+                Factorial = Factorial * i;
+            	}
+        	
+            
+            Console.WriteLine("The factorial of n is " + Factorial);
+        } 
+        
+
+----------------------------------------
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Please Enter an Integer n: ");
+        string A = Console.ReadLine();
+        int n = int.Parse(A);
+
+        if (n == 0) // Use == for comparison, not = (which is for assignment)
+        {
+            int Factorial = 1;
+            Console.WriteLine("The factorial of " + n + " is " + Factorial);
+        }
+        else
+        {
+            int Factorial = 1;
+
+            for (int i = 1; i <= n; i++)
+            {
+                Factorial *= i;
+            }
+
+            Console.WriteLine("The factorial of " + n + " is " + Factorial);
+        }
+    }
+}

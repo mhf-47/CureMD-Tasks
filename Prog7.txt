@@ -1,0 +1,25 @@
+//7. Write a program that prints multiplication table of numbers upto 12
+
+using System;
+
+namespace HelloWorld
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+	Console.WriteLine("Please Enter Table Number: ");
+        string A = Console.ReadLine();
+        int Num = int.Parse(A);
+        
+                
+        for	(int i = 0; i <= 12; i++)
+        {
+            	int Prod = Num * i;
+	        Console.WriteLine(Num1 + " x " + i + " = " + Prod);
+        }
+         
+    
+    }
+  }
+}

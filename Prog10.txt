@@ -1,0 +1,41 @@
+//10. Fibonacci sequence
+
+-----------------
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter the number of Fibonacci terms to generate: ");
+        if (int.TryParse(Console.ReadLine(), out int n) && n >= 0)
+        {
+            int a = 0, b = 1;
+
+            if (n >= 1)
+            {
+                Console.Write("Fibonacci sequence up to " + n + " terms: ");
+                Console.Write(a + " ");
+            }
+
+            if (n >= 2)
+            {
+                Console.Write(b + " ");
+            }
+
+            for (int i = 3; i <= n; i++)
+            {
+                int c = a + b;
+                Console.Write(c + " ");
+                a = b;
+                b = c;
+            }
+
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a non-negative integer.");
+        }
+    }
+}

@@ -1,0 +1,24 @@
+//3. Write a program that takes two numbers as input and writes their sum
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Please Enter the First Integer = ");
+        string A = Console.ReadLine();
+        int Num1 = int.Parse(A);
+        
+        Console.WriteLine("Please Enter the Second Integer = ");
+        string B = Console.ReadLine();
+        int Num2 = int.Parse(B);        
+        
+        int Sum = Num1 + Num2;
+        
+        Console.WriteLine("Sum = " + Sum);
+    }
+}
