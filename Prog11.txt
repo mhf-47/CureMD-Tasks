@@ -1,0 +1,24 @@
+//11. Write a program that searches for number n in an array of 5 (where n is user input).
+
+using System;
+
+class Program
+{
+    static void Main() {
+        
+        // Initialize the array with 5 values
+            int[] myIntArray = new int[5] ;
+            myIntArray[0] = 23;
+            myIntArray[1] = 17;
+            myIntArray[2] = 02;
+            myIntArray[3] = 46;
+            myIntArray[4] = 89;
+            
+            // Access elements of the array by index
+            Console.WriteLine("Please enter the element position number that you want to access:");
+            int n = int.Parse(Console.ReadLine());
+            int i = myIntArray[n]; // Access the first element (1)
+            Console.WriteLine("The element at this position is: " + i);
+        
+    }
+}

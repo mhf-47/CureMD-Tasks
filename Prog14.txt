@@ -1,0 +1,53 @@
+//14. Write a program that prints a right angle triangle using the "*" character, with the height based on user input. (using loops and following is only sample input)
+
+//*
+//**
+//***
+//****
+//*****
+
+
+using System;
+
+class Program
+{
+    static void Main() {
+        
+            Console.WriteLine("Enter the height of the right-angle triangle:");
+            string input = Console.ReadLine();
+
+            int height = int.Parse(input);
+
+            // Loop through each row
+            for (int row = 1; row <= height; row++)
+            {
+                // Loop through each column in the current row
+                for (int col = 1; col <= row; col++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine(); // Move to the next line after each row
+            }
+            
+    }
+}
+
+
+
+-------------------------
+
+Certainly! Here's a brief explanation of the logic behind the code:
+
+1. The program first prompts the user to enter the height of a right-angle triangle.
+
+2. It reads the user's input as a string using `Console.ReadLine()` and stores it in the `input` variable.
+
+3. The program then uses `int.Parse(input)` to attempt to convert the user's input into an integer. If the input is a valid integer, it's stored in the `height` variable. However, if the input is not a valid integer, it will result in an unhandled exception.
+
+4. After obtaining the height, the program uses two nested `for` loops to print the right-angle triangle. The outer loop iterates through each row, and the inner loop iterates through each column in the current row.
+
+5. In the inner loop, it prints "*" characters based on the current row number, which gives the right-angle triangle effect.
+
+6. After printing each row, it moves to the next line using `Console.WriteLine()` to create the triangle shape.
+
+The code assumes that the user will enter a valid integer as the height of the triangle. If a non-integer input is provided, it will result in an exception, so it's important to ensure valid input when using this code.

@@ -1,0 +1,85 @@
+Certainly, you can simplify the code by not using `int.Parse`, and we can keep the logic within the `Main` method for simplicity. Here's a revised version of the program with these changes:
+
+```csharp
+using System;
+
+namespace LongestCommonSubsequence
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Enter the first string:");
+            string str1 = Console.ReadLine();
+            Console.WriteLine("Enter the second string:");
+            string str2 = Console.ReadLine();
+
+            int m = str1.Length;
+            int n = str2.Length;
+
+            int[,] dp = new int[m + 1, n + 1];
+
+            // Build the DP table to find the length of LCS
+            for (int i = 0; i <= m; i++)
+            {
+                for (int j = 0; j <= n; j++)
+                {
+                    if (i == 0 || j == 0)
+                        dp[i, j] = 0;
+                    else if (str1[i - 1] == str2[j - 1])
+                        dp[i, j] = dp[i - 1, j - 1] + 1;
+                    else
+                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+                }
+            }
+
+            // Build the longest common subsequence from the DP table
+            int index = dp[m, n];
+            char[] lcs = new char[index];
+
+            int p = m, q = n;
+            while (p > 0 && q > 0)
+            {
+                if (str1[p - 1] == str2[q - 1])
+                {
+                    lcs[index - 1] = str1[p - 1];
+                    p--;
+                    q--;
+                    index--;
+                }
+                else if (dp[p - 1, q] > dp[p, q - 1])
+                    p--;
+                else
+                    q--;
+            }
+
+            string longestCommonSubsequence = new string(lcs);
+
+            Console.WriteLine("Longest Common Subsequence: " + longestCommonSubsequence);
+        }
+    }
+}
+```
+
+In this simplified version:
+
+1. The user is prompted to enter two strings.
+
+2. The input strings are directly used without parsing as integers.
+
+3. The program calculates the longest common subsequence using dynamic programming.
+
+4. The longest common subsequence is displayed to the user.
+
+This version doesn't use `int.Parse`, making it easier to understand.
+
+
+The line `int[,] dp = new int[m + 1, n + 1];` declares a two-dimensional array `dp` that is used to store the results of subproblems when solving the Longest Common Subsequence (LCS) problem. Here's an explanation of this line:
+
+- `int[,] dp`: This declares an array named `dp` that can store integers. It's a two-dimensional array, which is often used in dynamic programming to store solutions to subproblems efficiently.
+
+- `m + 1` and `n + 1`: The array is created with dimensions `(m + 1)` rows and `(n + 1)` columns. These dimensions are derived from the lengths of the input strings `str1` and `str2`. By using `(m + 1)` and `(n + 1)` instead of just `m` and `n`, you allow for additional row and column to store base cases (i.e., when one of the strings is empty).
+
+In dynamic programming, the two-dimensional array `dp` is filled with values during the process of solving the LCS problem. Each cell in the array represents the solution to a subproblem, with the final value in `dp[m, n]` representing the length of the longest common subsequence.
+
+By using a two-dimensional array, the program efficiently stores and retrieves solutions to overlapping subproblems, which is a key concept in dynamic programming. This allows for a more optimized approach to solving problems like finding the LCS.

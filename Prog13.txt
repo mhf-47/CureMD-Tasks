@@ -1,0 +1,47 @@
+//13. Write a program that finds the largest and smallest number in an unsorted array of integers.
+
+using System;
+
+namespace FindMinMaxInArray
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Define an array of integers
+            int[] numbers = { 12, 5, 7, 9, 20, 2, 18, 15 };
+
+            // Initialize variables to store the minimum and maximum values
+            int min = numbers[0]; // Initialize min with the first element
+            int max = numbers[0]; // Initialize max with the first element
+
+            // Iterate through the array to find the minimum and maximum values
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] < min)
+                {
+                    min = numbers[i]; // Update min if a smaller number is found
+                }
+
+                if (numbers[i] > max)
+                {
+                    max = numbers[i]; // Update max if a larger number is found
+                }
+            }
+
+            // Print the minimum and maximum values
+            Console.WriteLine("Smallest number: " + min);
+            Console.WriteLine("Largest number: " + max);
+        }
+    }
+}
+
+-----------------------
+In this program:
+
+We define an array of integers called numbers.
+We initialize min and max with the first element of the array.
+We iterate through the array starting from the second element (index 1) and compare each element with the current min and max. If we find a smaller value, we update min, and if we find a larger value, we update max.
+After iterating through the entire array, we print the values of min and max, which represent the smallest and largest numbers in the array, respectively.
+You can replace the numbers array with your own array of integers to find the smallest and largest values in your specific array.
+

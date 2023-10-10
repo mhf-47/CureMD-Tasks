@@ -1,0 +1,52 @@
+//19. Write a program that prints the following pattern up to n rows (where n is user input).
+
+//1
+//12
+//123
+//1234
+//...
+//123...n
+
+
+You can create a C# program to print the pattern as described using simple beginner-level logic. Here's the code:
+
+```csharp
+using System;
+
+namespace NumberPattern
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Enter the number of rows for the pattern:");
+            int n = int.Parse(Console.ReadLine());
+
+            for (int row = 1; row <= n; row++)
+            {
+                for (int num = 1; num <= row; num++)
+                {
+                    Console.Write(num);
+                }
+                Console.WriteLine(); // Move to the next line after each row
+            }
+        }
+    }
+}
+```
+
+In this program:
+
+1. The user is prompted to enter the number of rows for the pattern.
+
+2. The input is read and parsed as an integer using `int.Parse`.
+
+3. A nested `for` loop is used to create the pattern:
+   - The outer loop (`for (int row = 1; row <= n; row++)`) iterates through each row.
+   - The inner loop (`for (int num = 1; num <= row; num++)`) iterates through each number in the current row.
+
+4. The inner loop prints numbers from 1 to the current row number, creating the pattern.
+
+5. After printing each row, it moves to the next line using `Console.WriteLine()` to create the pattern shape.
+
+This program prints the pattern up to the specified number of rows as entered by the user.

@@ -1,0 +1,58 @@
+//18. Write a program that checks if a given number is a perfect number.
+(sum of all divisors excluding itself should be equal to that number e.g.; 1 + 2 + 3 = 6)
+
+
+
+To determine if a given number is a perfect number, you can use a simple loop to find all divisors (excluding the number itself) and calculate their sum. If the sum is equal to the original number, it's a perfect number. Here's a beginner-friendly C# program using `int.Parse` to achieve this:
+
+```csharp
+using System;
+
+namespace PerfectNumberChecker
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Enter a number to check if it's a perfect number:");
+            int number = int.Parse(Console.ReadLine());
+
+            int sumOfDivisors = 0;
+
+            // Find and sum all divisors (excluding the number itself)
+            for (int i = 1; i < number; i++)
+            {
+                if (number % i == 0)
+                {
+                    sumOfDivisors += i;
+                }
+            }
+
+            if (sumOfDivisors == number)
+            {
+                Console.WriteLine($"{number} is a perfect number.");
+            }
+            else
+            {
+                Console.WriteLine($"{number} is not a perfect number.");
+            }
+        }
+    }
+}
+```
+
+In this program:
+
+1. The user is prompted to enter a number.
+
+2. The input is read and parsed as an integer using `int.Parse`.
+
+3. A variable `sumOfDivisors` is initialized to zero to store the sum of divisors.
+
+4. A `for` loop is used to iterate through numbers from 1 to `number - 1`. These are the potential divisors.
+
+5. Inside the loop, it checks if the current number is a divisor of the input number (`number % i == 0`). If it is, it adds it to the `sumOfDivisors`.
+
+6. After the loop, it compares the `sumOfDivisors` with the original number. If they are equal, it's a perfect number; otherwise, it's not.
+
+This program checks whether the input number is a perfect number and provides the result.

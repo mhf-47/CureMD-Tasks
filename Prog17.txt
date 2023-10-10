@@ -1,0 +1,102 @@
+//17. Write a program that sorts an array. (take input as random numbers)
+
+using System;
+
+class Program
+{
+    static void Main() 
+        
+        {   
+            
+             Console.WriteLine("Enter the number of elements in the array:");
+            int n = int.Parse(Console.ReadLine());
+            int[] numbers = new int[n];
+
+            Console.WriteLine("Enter random numbers:");
+
+            for (int i = 0; i < n; i++)
+            {
+                int number = int.Parse(Console.ReadLine());
+                numbers[i] = number;
+            }
+
+            Array.Sort(numbers); // Sort the array
+
+            Console.WriteLine("Sorted array:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
+            
+        }
+    
+}
+
+
+---------------------------------------
+
+
+
+using System;
+
+namespace ArraySorting
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Enter the number of elements in the array:");
+            int n = int.Parse(Console.ReadLine());
+            int[] numbers = new int[n];
+
+            Console.WriteLine("Enter random numbers:");
+
+            for (int i = 0; i < n; i++)
+            {
+                int number = int.Parse(Console.ReadLine());
+                numbers[i] = number;
+            }
+
+            // Sort the array using a simple bubble sort
+            int temp;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (numbers[j] > numbers[j + 1])
+                    {
+                        // Swap the elements
+                        temp = numbers[j];
+                        numbers[j] = numbers[j + 1];
+                        numbers[j + 1] = temp;
+                    }
+                }
+            }
+
+            Console.WriteLine("Sorted array:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
+        }
+    }
+}
+
+
+----------------------------------
+
+Certainly! Here's a brief explanation of the logic behind the code:
+
+1. The program first prompts the user to enter the number of elements (n) in the array.
+
+2. It uses `int.Parse(Console.ReadLine())` to directly parse the user's input as an integer, assuming that the input will always be a valid integer.
+
+3. An array of integers (`numbers`) is created with `n` elements to store the random numbers.
+
+4. The program prompts the user to enter random numbers one by one, and it uses `int.Parse(Console.ReadLine())` to parse each input as an integer and stores them in the array.
+
+5. After all values are input, a simple bubble sort algorithm is used to sort the array in ascending order. The sorting logic is included directly within the `Main` method.
+
+6. Finally, a `for` loop is used to iterate through the sorted array, and each element is displayed in ascending order.
+
+This program allows you to input random numbers, sorts them using a bubble sort algorithm, and then displays the sorted numbers in ascending order.

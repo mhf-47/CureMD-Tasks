@@ -1,0 +1,59 @@
+//15. Write a program that prints the following pattern up to n rows (where n is user input).
+
+//      *
+//     *** 
+//    *****
+//   *******
+//  *********
+
+
+using System;
+
+class Program
+{
+    static void Main() {
+        
+            Console.WriteLine("Enter the number of rows for the equilateral triangle:");
+            string input = Console.ReadLine();
+
+            int numRows = int.Parse(input);
+
+            // Loop through each row
+            for (int row = 1; row <= numRows; row++)
+            {
+                // Print spaces for the left padding
+                for (int space = 1; space <= numRows - row; space++)
+                {
+                    Console.Write(" ");
+                }
+
+                // Print asterisks for the triangle
+                for (int col = 1; col <= 2 * row - 1; col++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine(); // Move to the next line after each row
+            }
+            
+    }
+}
+
+-------------------------------
+
+Certainly! Here's a brief explanation of the logic behind the code:
+
+1. The program first prompts the user to enter the number of rows for the equilateral triangle.
+
+2. It reads the user's input as a string using `Console.ReadLine()` and stores it in the `input` variable.
+
+3. The program uses `int.Parse(input)` to directly parse the `input` string as an integer without checking for exceptions. It assumes that the input will always be a valid integer.
+
+4. After obtaining the number of rows, the program uses two nested `for` loops to create the equilateral triangle pattern:
+   - The outer loop iterates through each row.
+   - The inner loop prints spaces for left padding based on the current row number (`numRows - row` spaces).
+   - Another inner loop prints asterisks for the triangle based on the current row number (`2 * row - 1` asterisks).
+
+5. After printing each row, it moves to the next line using `Console.WriteLine()` to create the triangle shape.
+
+This code is concise and straightforward, assuming that the user will always provide valid input as an integer. However, it doesn't include any error handling or input validation.
