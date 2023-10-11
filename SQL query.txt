@@ -1,0 +1,39 @@
+CREATE TABLE Students (
+	StudentID int,
+	FirstName varchar (50),
+	LastName varchar (50),
+	Age int,
+	CourseID int,
+	PRIMARY KEY (StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+	)
+
+CREATE TABLE Courses (
+	CourseID int,
+	CourseName varchar (100)
+	PRIMARY KEY (CourseID),
+    )
+
+Insert into Courses(CourseID, CourseName) 
+Values (101, 'Mechanics'), 
+(102, 'Dynamics'),
+(103, 'English'),
+(104, 'Maths'),
+(105, 'Urdu')
+
+Select from Courses;
+
+Insert into Students(StudentID, FirstName, LastName, Age, CourseID) 
+Values (1, 'Hasan', 'Ali', 20, 101),
+(1, 'Ahmed', 'Ali', 20, 102),
+(2, 'Qureshi', 'Ali', 23, 101),
+(3, 'Fahad', 'Ali', 22, 104),
+(4, 'Noman', 'Ali', 19, 104),
+(5, 'Noufil', 'Ali', 28, 104),
+(6, 'Haider', 'Ali', 27, 102),
+(7, 'Babar', 'Ali', 25, 102),
+(8, 'Haris', 'Ali', 23, 101),
+(9, 'Shadab', 'Ali', 24, 103),
+(10, 'Abdullah', 'Ali', 22, 105)
+
+Select from Students;
