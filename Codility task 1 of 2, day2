@@ -1,0 +1,29 @@
+     //int N = 4;
+
+//string newstr = "";
+
+//for (int i = 1; i <= N; i++)
+//{
+//    for (int even = i - 1; even <= N; even = even + 1)
+//    {
+//        newstr = newstr + "+";
+//        Console.WriteLine(newstr);
+//        break;
+//    }
+
+
+//    newstr = newstr + "-";
+//    Console.WriteLine(newstr);
+//}
+
+
+////string solution(int N)
+////{
+////    // Implement your solution here
+////    string plus = "+";
+////    for (int i = 1; i <= N; i++)
+////    {
+////        Console.WriteLine(plus);
+////    }
+
+////}
