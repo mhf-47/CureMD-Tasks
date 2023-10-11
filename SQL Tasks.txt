@@ -1,0 +1,113 @@
+--Task 1: Create a Database
+
+Create Database MHF;
+GO
+USE MHF;
+
+--Task 2: Create Tables
+CREATE TABLE Courses (
+	CourseID int NOT NULL,
+	CourseName varchar (100),
+	PRIMARY KEY (CourseID)
+    )
+
+CREATE TABLE Students (
+	StudentID int NOT NULL,
+	FirstName varchar (50),
+	LastName varchar (50),
+	Age int,
+	CourseID int,
+	PRIMARY KEY (StudentID),
+	FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+	)
+
+--Task 3: Insert Data
+Insert into Courses(CourseID, CourseName) 
+Values (101, 'Mechanics'), 
+(102, 'Dynamics'),
+(103, 'English'),
+(104, 'Maths'),
+(105, 'Urdu')
+
+Insert into Students(StudentID, FirstName, LastName, Age, CourseID) 
+Values 
+(1, 'Ahmed', 'Ali', 20, 102),
+(2, 'Qureshi', 'Ali', 23, 101),
+(3, 'Fahad', 'Ali', 22, 104),
+(4, 'Noman', 'Ali', 19, 104),
+(5, 'Noufil', 'Ali', 28, 104),
+(6, 'Haider', 'Ali', 27, 102),
+(7, 'Babar', 'Ali', 25, 102),
+(8, 'Haris', 'Ali', 23, 101),
+(9, 'Shadab', 'Ali', 24, 103),
+(10, 'Abdullah', 'Ali', 22, 105)
+
+
+SELECT Students.StudentID, Courses.CourseName, Students.FirstName, Students.Age
+FROM Students
+JOIN Courses ON Students.CourseID = Courses.CourseID;
+
+--Task 4: Update and Delete Records
+UPDATE Students 
+SET LastName = 'Ashraf' 
+WHERE StudentID = 9
+
+DELETE FROM Students
+WHERE StudentID = 10;
+
+--Task 5: Queries and Filters
+
+SELECT * FROM Students
+WHERE Age >= 20;
+
+Select Students.StudentID, Students.FirstName, Students.Age, Students.CourseID, Courses.CourseName From Students
+JOIN Courses ON Students.CourseID = Courses.CourseID
+WHERE Students.CourseID = 104;
+
+--Task 6: Aggregation Functions
+Select COUNT(StudentID) --Finds the no. of unique entries (PK) to return the no. of students 
+From Students
+
+Select AVG(Age)
+From Students
+
+--Task 7: Selection queries
+
+UPDATE Students 
+SET CourseID = NULL 
+WHERE StudentID = 7
+
+--1.List the names of students who are not enrolled in any course.
+Select Students.FirstName, Students.LastName
+From Students
+Where Students.CourseID = 104
+
+--2.Find the most popular course (the course with the most students enrolled).
+Select Students.FirstName, Students.LastName
+From Students
+Where Students.CourseID = 104
+
+--3.List the students who are older than the average age of students.
+SELECT Students.FirstName, Students.LastName, Students.Age
+FROM Students
+WHERE Students.Age > (Select AVG(Age) From Students);
+
+
+--4.Find the total number of students and average age for each course.
+SELECT Courses.CourseName, COUNT(Students.StudentID) AS TotalStudents, AVG(Students.Age) AS AverageAge
+FROM Students
+JOIN Courses ON Students.CourseID = Courses.CourseID
+GROUP BY Courses.CourseName;
+
+
+--5.List the courses that have no students enrolled in them.
+SELECT Courses.CourseName
+FROM Students
+LEFT JOIN Courses ON Students.CourseID = Courses.CourseID
+WHERE Students.StudentID = 104;
+
+--6.List students who share courses with a specific student (choose one from your records).
+--7.For each course, list the youngest and oldest student.
+Select Students.FirstName, Students.StudentID
+From Students
+Where Students.Age = 23

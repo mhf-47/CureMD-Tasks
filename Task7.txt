@@ -1,0 +1,242 @@
+2. To find the most popular course (the course with the most students enrolled), you can use the following SQL query:
+
+```sql
+SELECT Courses.CourseName, COUNT(Students.StudentID) AS EnrollmentCount
+FROM Courses
+JOIN Students ON Courses.CourseID = Students.CourseID
+GROUP BY Courses.CourseName
+ORDER BY EnrollmentCount DESC
+LIMIT 1;
+```
+
+In this query:
+
+1. We're selecting the `CourseName` from the `Courses` table and counting the number of students in each course using `COUNT(Students.StudentID)`.
+
+2. We're using a `JOIN` to combine the `Courses` and `Students` tables based on the `CourseID` to associate courses with students.
+
+3. The `GROUP BY Courses.CourseName` groups the results by course name.
+
+4. The `ORDER BY EnrollmentCount DESC` orders the results in descending order based on the number of students enrolled in each course, placing the course with the most students first.
+
+5. The `LIMIT 1` ensures that only the top result (most popular course) is returned.
+
+This query will give you the most popular course along with the number of students enrolled in it. Please note that the use of `LIMIT` assumes that you're working with a database that supports it (e.g., MySQL, PostgreSQL). If you're using a database that uses a different syntax for limiting results, you might need to adjust the query accordingly.
+
+
+------------------------------
+
+
+3. To list the students who are older than the average age of students, you can use the following SQL query:
+
+```sql
+SELECT Students.FirstName, Students.LastName, Students.Age
+FROM Students
+WHERE Students.Age > (SELECT AVG(Age) FROM Students);
+```
+
+In this query:
+
+1. We're selecting the `FirstName`, `LastName`, and `Age` columns from the `Students` table.
+
+2. The `WHERE Students.Age > (SELECT AVG(Age) FROM Students)` condition filters the results to only include students whose age is greater than the average age of all students. 
+
+The subquery `(SELECT AVG(Age) FROM Students)` calculates the average age of all students, and the main query then compares each student's age to this average, returning only those who are older.
+
+-----------------------------------
+
+4.	Find the total number of students and average age for each course.
+
+I see what you mean. In your database schema, the `CourseID` in the `Courses` table is acting as a foreign key that references the `CourseID` in the `Students` table. Given this relationship, you can use a simple `JOIN` (also known as an `INNER JOIN`) without specifying "INNER" explicitly, as you're essentially performing an inner join between the two tables.
+
+Here's the query using the simplified `JOIN`:
+
+```sql
+SELECT Courses.CourseName, COUNT(Students.StudentID) AS TotalStudents, AVG(Students.Age) AS AverageAge
+FROM Courses
+JOIN Students ON Courses.CourseID = Students.CourseID
+GROUP BY Courses.CourseName;
+```
+
+This query will provide the total number of students and the average age for each course, where there is at least one enrolled student. Courses without any enrolled students will not appear in the result set.
+
+
+-----------------------------------
+
+5. 5.	List the courses that have no students enrolled in them.
+
+To list the courses that have no students enrolled in them, you can use a `LEFT JOIN` and then filter for courses with no students. Here's the SQL query to achieve this:
+
+```sql
+SELECT Courses.CourseName
+FROM Courses
+LEFT JOIN Students ON Courses.CourseID = Students.CourseID
+WHERE Students.StudentID IS NULL;
+```
+
+In this query:
+
+1. We're selecting the `CourseName` from the `Courses` table.
+
+2. We use a `LEFT JOIN` to link the `Courses` and `Students` tables based on the `CourseID`. This ensures that all courses are included in the result, even if they have no enrolled students.
+
+3. The `WHERE Students.StudentID IS NULL` condition filters the results to only include courses where there is no matching student record (i.e., no student is enrolled).
+
+This query will list the courses that have no students enrolled in them.
+
+
+---------------------------------------
+
+
+6. To list students who share courses with a specific student, you can use a subquery to first find the courses of the specific student, and then use that list of courses to find other students who are also enrolled in those courses. Here's an example query:
+
+Assuming you want to find students who share courses with StudentID 3 (you can replace it with the specific StudentID you're interested in):
+
+```sql
+-- First, get the list of courses of the specific student (StudentID = 3)
+WITH SpecificStudentCourses AS (
+    SELECT CourseID
+    FROM Students
+    WHERE StudentID = 3
+)
+
+-- Now, find students who are enrolled in the same courses as the specific student
+SELECT s2.StudentID, s2.FirstName, s2.LastName
+FROM Students s1
+JOIN SpecificStudentCourses c1 ON s1.CourseID = c1.CourseID
+JOIN Students s2 ON s2.CourseID = c1.CourseID
+WHERE s1.StudentID = 3 AND s2.StudentID <> 3;
+```
+
+In this query:
+
+1. We use a common table expression (WITH clause) to get the list of courses (CourseID) of the specific student (StudentID = 3).
+
+2. We then use a series of `JOIN` operations to find other students who are also enrolled in those same courses. The `JOIN` with `SpecificStudentCourses` ensures that we find students who share courses with the specific student.
+
+3. The `WHERE` clause filters for the specific student (StudentID = 3) and excludes them from the result to avoid listing the specific student themselves.
+
+This query will list the students who share courses with the specified student (StudentID = 3 in this example).
+
+
+------------------------------------
+
+
+6. A simpler way to list students who share courses with a specific student is to use a subquery within the `WHERE` clause. Here's a basic example:
+
+```sql
+SELECT s.StudentID, s.FirstName, s.LastName
+FROM Students s
+WHERE s.CourseID IN (SELECT CourseID FROM Students WHERE StudentID = 3)
+    AND s.StudentID <> 3;
+```
+
+In this query:
+
+1. We use a subquery within the `WHERE` clause to get the list of courses (CourseID) of the specific student with `StudentID = 3`.
+
+2. Then, we retrieve the students who are enrolled in those same courses using the `IN` operator.
+
+3. We include `AND s.StudentID <> 3` to exclude the specific student from the result.
+
+This simplified query should list the students who share courses with the specified student (StudentID = 3 in this example).
+
+
+----------------------------------
+
+7. Certainly, you can list the youngest and oldest student for each course without using any aliases. Here's the query:
+
+```sql
+WITH CourseMinMaxAges AS (
+    SELECT
+        Courses.CourseName,
+        MIN(Students.Age) AS MinAge,
+        MAX(Students.Age) AS MaxAge
+    FROM Courses
+    LEFT JOIN Students ON Courses.CourseID = Students.CourseID
+    GROUP BY Courses.CourseName
+)
+
+SELECT
+    CourseName,
+    (SELECT TOP 1 Students.FirstName FROM Students WHERE Students.Age = MinAge AND Students.CourseID = Courses.CourseID) AS YoungestStudentFirstName,
+    (SELECT TOP 1 Students.LastName FROM Students WHERE Students.Age = MinAge AND Students.CourseID = Courses.CourseID) AS YoungestStudentLastName,
+    MinAge AS YoungestStudentAge,
+    (SELECT TOP 1 Students.FirstName FROM Students WHERE Students.Age = MaxAge AND Students.CourseID = Courses.CourseID) AS OldestStudentFirstName,
+    (SELECT TOP 1 Students.LastName FROM Students WHERE Students.Age = MaxAge AND Students.CourseID = Courses.CourseID) AS OldestStudentLastName,
+    MaxAge AS OldestStudentAge
+FROM CourseMinMaxAges;
+```
+
+In this query:
+
+1. We use a common table expression (CTE) named `CourseMinMaxAges` to calculate the minimum and maximum ages for each course, using `MIN` and `MAX` aggregation functions, and grouping by the course name.
+
+2. The main query selects the course name and retrieves the first name, last name, and age of the youngest and oldest students for each course. Subqueries are used to obtain this information.
+
+This query lists the course name, the youngest student's first name, last name, and age, and the oldest student's first name, last name, and age for each course without using aliases.
+
+-----------------------------
+7. You're absolutely correct. If there are multiple students with the same minimum or maximum age for a course, using `TOP 1` will not ensure that you get all of them. To handle cases where there are multiple students with the same age, you can modify the query to use a subquery within a `JOIN` to include all the students who meet the criteria. Here's an updated query:
+
+```sql
+WITH CourseMinMaxAges AS (
+    SELECT
+        Courses.CourseName,
+        MIN(Students.Age) AS MinAge,
+        MAX(Students.Age) AS MaxAge
+    FROM Courses
+    LEFT JOIN Students ON Courses.CourseID = Students.CourseID
+    GROUP BY Courses.CourseName
+)
+
+SELECT
+    c.CourseName,
+    c.MinAge AS YoungestStudentAge,
+    s_youngest.FirstName AS YoungestStudentFirstName,
+    s_youngest.LastName AS YoungestStudentLastName,
+    c.MaxAge AS OldestStudentAge,
+    s_oldest.FirstName AS OldestStudentFirstName,
+    s_oldest.LastName AS OldestStudentLastName
+FROM CourseMinMaxAges c
+LEFT JOIN Students s_youngest ON c.CourseName = s_youngest.CourseID AND c.MinAge = s_youngest.Age
+LEFT JOIN Students s_oldest ON c.CourseName = s_oldest.CourseID AND c.MaxAge = s_oldest.Age;
+```
+
+In this modified query:
+
+- We join the `CourseMinMaxAges` CTE with the `Students` table twice for the youngest and oldest students.
+- This way, if there are multiple students with the same minimum or maximum age, they will all be included in the result set.
+
+This query lists the course name, the youngest and oldest student's age, first name, and last name for each course, even when there are multiple students with the same age.You're absolutely correct. If there are multiple students with the same minimum or maximum age for a course, using `TOP 1` will not ensure that you get all of them. To handle cases where there are multiple students with the same age, you can modify the query to use a subquery within a `JOIN` to include all the students who meet the criteria. Here's an updated query:
+
+```sql
+WITH CourseMinMaxAges AS (
+    SELECT
+        Courses.CourseName,
+        MIN(Students.Age) AS MinAge,
+        MAX(Students.Age) AS MaxAge
+    FROM Courses
+    LEFT JOIN Students ON Courses.CourseID = Students.CourseID
+    GROUP BY Courses.CourseName
+)
+
+SELECT
+    c.CourseName,
+    c.MinAge AS YoungestStudentAge,
+    s_youngest.FirstName AS YoungestStudentFirstName,
+    s_youngest.LastName AS YoungestStudentLastName,
+    c.MaxAge AS OldestStudentAge,
+    s_oldest.FirstName AS OldestStudentFirstName,
+    s_oldest.LastName AS OldestStudentLastName
+FROM CourseMinMaxAges c
+LEFT JOIN Students s_youngest ON c.CourseName = s_youngest.CourseID AND c.MinAge = s_youngest.Age
+LEFT JOIN Students s_oldest ON c.CourseName = s_oldest.CourseID AND c.MaxAge = s_oldest.Age;
+```
+
+In this modified query:
+
+- We join the `CourseMinMaxAges` CTE with the `Students` table twice for the youngest and oldest students.
+- This way, if there are multiple students with the same minimum or maximum age, they will all be included in the result set.
+
+This query lists the course name, the youngest and oldest student's age, first name, and last name for each course, even when there are multiple students with the same age.
