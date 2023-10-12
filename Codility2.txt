@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+  
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main()
+        {
+
+            string test = "<<^<";
+            char[] newChar = test.ToCharArray();
+
+            int left = 0;
+            int right = 0;
+            int down = 0;
+            int up = 0;
+
+            List<string> shopping list = new List<string>();
+
+            for (int i=0; i < newChar.Length; i++)
+            {
+                if (newChar[i] == '<')
+                left++;
+            }
+
+            for (int i = 0; i < newChar.Length; i++)
+            {
+                if (newChar[i] == '>')
+                    right++;
+            }
+
+            for (int i = 0; i < newChar.Length; i++)
+            {
+                if (newChar[i] == '^')
+                    up++;
+            }
+
+            for (int i = 0; i < newChar.Length; i++)
+            {
+                if (newChar[i] == 'v')
+                    down++;
+            }
+
+            int MostArrow = (up, down, left, right);
+            
+
+
+            if (newChar[1] == '<')
+            {
+                Console.WriteLine(MostArrow);
+            }
+
+
+                
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     //int N = 4;
+
+//string newstr = "";
+
+//for (int i = 1; i <= N; i++)
+//{
+//    for (int even = i - 1; even <= N; even = even + 1)
+//    {
+//        newstr = newstr + "+";
+//        Console.WriteLine(newstr);
+//        break;
+//    }
+
+
+//    newstr = newstr + "-";
+//    Console.WriteLine(newstr);
+//}
+
+
+////string solution(int N)
+////{
+////    // Implement your solution here
+////    string plus = "+";
+////    for (int i = 1; i <= N; i++)
+////    {
+////        Console.WriteLine(plus);
+////    }
+
+////}
